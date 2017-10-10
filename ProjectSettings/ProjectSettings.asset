@@ -10,7 +10,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Scrubz Corp
+  companyName: Scrubz corp
   productName: PlayerController
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -501,7 +501,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
     1: CROSS_PLATFORM_INPUT
-    4: 
+    4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     14: MOBILE_INPUT
     17: MOBILE_INPUT
@@ -594,11 +594,15 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 5a0cfe4a-1541-43e5-a122-211f78ad092f
-  projectName: P1
+  cloudProjectId: 3127724c-44a8-4357-a96e-bb7e026e4456
+  projectName: PlayerController
   organizationId: kalindu
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
