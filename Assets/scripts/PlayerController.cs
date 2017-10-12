@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 contactPoint;
     private bool playerControl;
     private int jumpTimer;
+    private Animator anim;
 
     // Use this for initialization
     void Start()
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         rayDistance = (controller.height * 0.5f) + controller.radius;
         slideLimit = controller.slopeLimit - 0.1f;
         jumpTimer = antiBunnyHopFactor;
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -58,6 +60,8 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.7071f : 1.0f;
+        anim.SetFloat("BlendX", inputX * inputModifyFactor);
+        anim.SetFloat("BlendY", inputY * inputModifyFactor);
 
         if (grounded)
         {
@@ -140,6 +144,7 @@ public class PlayerController : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
 
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
+        print("X: " + inputX + " Y: " + inputY + " Modifier: " + inputModifyFactor);
     }
 
     void Update()
