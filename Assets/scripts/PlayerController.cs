@@ -14,16 +14,12 @@ public class PlayerController : MonoBehaviour
     public bool limitDiagonalSpeed = true;
     public bool toggleRun = false;
     public bool toggleSneak = false;
-    public bool slideWhenOverSlope = true;
-    public bool slideOnTaggedObject = true;
     public bool airControl = true; // strafing / b-hop
 
-    public float gravity = 20.0f;
+    public float gravity = 10.0f;
 
     public float fallingDamageLimit = 10.0f;
     public float slideSpeed = 12.0f;
-    public float antiBumpFactor = 0.75f;
-    public int antiBunnyHopFactor = 0;
 
     private Vector3 moveDirection;
     private bool grounded;
@@ -37,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private float rayDistance;
     private Vector3 contactPoint;
     private bool playerControl;
-    private int jumpTimer;
     private Animator anim;
 
     // Use this for initialization
@@ -51,7 +46,6 @@ public class PlayerController : MonoBehaviour
         speed = walkSpeed;
         rayDistance = (controller.height * 0.5f) + controller.radius;
         slideLimit = controller.slopeLimit - 0.1f;
-        jumpTimer = antiBunnyHopFactor;
         anim = GetComponent<Animator>();
     }
 
@@ -66,21 +60,6 @@ public class PlayerController : MonoBehaviour
 
         if (grounded)
         {
-            bool sliding = false;
-
-            if (Physics.Raycast(myTransform.position, -Vector3.up, out hit, rayDistance))
-            {
-                if (Vector3.Angle(hit.normal, Vector3.up) > slideLimit)
-                {
-                    sliding = true;
-                }
-            }
-            else
-            {
-                Physics.Raycast(contactPoint + Vector3.up, -Vector3.up, out hit);
-                if (Vector3.Angle(hit.normal, Vector3.up) > slideLimit)
-                    sliding = true;
-            }
 
             if (falling)
             {
@@ -100,33 +79,24 @@ public class PlayerController : MonoBehaviour
 
             if (!toggleSneak)
             {
-                speed = Input.GetButton("Sneak") ? sneakSpeed : speed;
+                bool sneaking = Input.GetButton("Sneak");
+                speed = sneaking ? sneakSpeed : speed;
+                anim.SetBool("Sneaking", sneaking);
             }
 
-            if ((sliding && slideWhenOverSlope) || (slideOnTaggedObject && hit.collider.tag == "Slide"))
-            {
-                Vector3 hitNormal = hit.normal;
-                moveDirection = new Vector3(hitNormal.x, -hitNormal.y, hitNormal.z);
-                Vector3.OrthoNormalize(ref hitNormal, ref moveDirection);
-                moveDirection = moveDirection * slideSpeed;
-                playerControl = false;
-            }
-            else
-            {
-                //print(speed);
-                moveDirection = new Vector3(inputX * inputModifyFactor, -antiBumpFactor, inputY * inputModifyFactor);
-                moveDirection = myTransform.TransformDirection(moveDirection) * speed;
-                playerControl = true;
-            }
+            //print(speed);
+            moveDirection = new Vector3(inputX * inputModifyFactor, 0, inputY * inputModifyFactor);
+            moveDirection = myTransform.TransformDirection(moveDirection) * speed;
 
             if (!Input.GetButton("Jump"))
             {
-                jumpTimer++;
+                anim.SetBool("Jump", false);
             }
-            else if (jumpTimer > antiBunnyHopFactor)
+            else 
             {
                 moveDirection.y = jumpSpeed;
-                jumpTimer = 0;
+                
+                anim.SetBool("Jump", true);
             }
         }
         else
@@ -145,13 +115,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        moveDirection.y -= gravity * Time.deltaTime;
+        
 
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
-        print(Time.deltaTime);
-        anim.SetBool("Jump", !grounded);
-        //print("X: " + inputX + " Y: " + inputY + " Modifier: " + inputModifyFactor);
-        //print(Input.GetButton("Run"));
+        moveDirection.y -= gravity * Time.deltaTime;
     }
 
     void Update()

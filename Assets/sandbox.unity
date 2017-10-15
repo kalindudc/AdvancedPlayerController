@@ -112,6 +112,28 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
   m_PrefabInternal: {fileID: 2009963618}
+--- !u!114 &187070686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 187070685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e389df19b434bc740baa117b5d52dc2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  sneakSpeed: 2
+  runSpeed: 6.5
+  jumpSpeed: 6
+  limitDiagonalSpeed: 1
+  toggleRun: 0
+  toggleSneak: 0
+  airControl: 1
+  gravity: 10
+  fallingDamageLimit: 10
+  slideSpeed: 12
 --- !u!143 &187070688
 CharacterController:
   m_ObjectHideFlags: 0
@@ -129,32 +151,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.98, z: 0}
---- !u!114 &187070689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 187070685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e389df19b434bc740baa117b5d52dc2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 4
-  sneakSpeed: 2
-  runSpeed: 6
-  jumpSpeed: 1
-  limitDiagonalSpeed: 1
-  toggleRun: 0
-  toggleSneak: 0
-  slideWhenOverSlope: 1
-  slideOnTaggedObject: 1
-  airControl: 1
-  gravity: 20
-  fallingDamageLimit: 10
-  slideSpeed: 12
-  antiBumpFactor: 0.75
-  antiBunnyHopFactor: 0
 --- !u!1 &367419520
 GameObject:
   m_ObjectHideFlags: 0
