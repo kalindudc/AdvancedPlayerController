@@ -60,8 +60,9 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.7071f : 1.0f;
-        anim.SetFloat("BlendX", inputX * inputModifyFactor);
-        anim.SetFloat("BlendY", inputY * inputModifyFactor);
+        anim.SetFloat("BlendX", (inputX * 2) );
+        anim.SetFloat("BlendY", (inputY * 2) );
+        anim.SetBool("Walking", (anim.GetFloat("BlendX") != 0 || anim.GetFloat("BlendY") != 0));
 
         if (grounded)
         {
@@ -92,12 +93,14 @@ public class PlayerController : MonoBehaviour
 
             if (!toggleRun)
             {
-                speed = Input.GetButton("Run") ? runSpeed : walkSpeed;
+                bool running = Input.GetButton("Run");
+                speed = running ? runSpeed : walkSpeed;
+                anim.SetBool("Running", running);
             }
 
             if (!toggleSneak)
             {
-                speed = Input.GetButton("Sneak") ? sneakSpeed : walkSpeed;
+                speed = Input.GetButton("Sneak") ? sneakSpeed : speed;
             }
 
             if ((sliding && slideWhenOverSlope) || (slideOnTaggedObject && hit.collider.tag == "Slide"))
@@ -110,6 +113,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                //print(speed);
                 moveDirection = new Vector3(inputX * inputModifyFactor, -antiBumpFactor, inputY * inputModifyFactor);
                 moveDirection = myTransform.TransformDirection(moveDirection) * speed;
                 playerControl = true;
@@ -144,7 +148,10 @@ public class PlayerController : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
 
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
-        print("X: " + inputX + " Y: " + inputY + " Modifier: " + inputModifyFactor);
+        print(Time.deltaTime);
+        anim.SetBool("Jump", !grounded);
+        //print("X: " + inputX + " Y: " + inputY + " Modifier: " + inputModifyFactor);
+        //print(Input.GetButton("Run"));
     }
 
     void Update()
