@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e389df19b434bc740baa117b5d52dc2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1676076243}
   walkSpeed: 5
   sneakSpeed: 2
   runSpeed: 6.5
@@ -131,9 +132,9 @@ MonoBehaviour:
   toggleRun: 0
   toggleSneak: 0
   airControl: 1
+  firstPerson: 1
   gravity: 10
   fallingDamageLimit: 10
-  slideSpeed: 12
 --- !u!143 &187070688
 CharacterController:
   m_ObjectHideFlags: 0
@@ -537,13 +538,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1676076239}
-  m_LocalRotation: {x: 0.21295178, y: -0.043336853, z: 0.009467764, w: 0.9760553}
-  m_LocalPosition: {x: 0.03100586, y: 2.5174427, z: -3.1343079}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 2.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 187070689}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 27.602001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!1 &1862331468
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +619,16 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 164628cfff1f8e949b7e4ad5f213fec0, type: 2}
+    - target: {fileID: 9500000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) use transforms that are already
+        bound by a Humanoid avatar. These transforms can only be changed by Humanoid
+        clips.\n\tTransform 'swat:Hips'\n\tTransform 'swat:RightHandIndex1'\n\tTransform
+        'swat:LeftToeBase'\n\tTransform 'swat:LeftShoulder'\n\tTransform 'swat:Head'\n\tTransform
+        'swat:LeftLeg'\n\tTransform 'swat:RightHandMiddle1'\n\tTransform 'swat:RightShoulder'\n\tTransform
+        'swat:LeftHandIndex1'\n\tTransform 'swat:RightHandRing2'\n\tand more ...\n\tFrom
+        animation clip 'Left Strafe'\n\tFrom animation clip 'Right Strafe'"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
   m_IsPrefabParent: 0
