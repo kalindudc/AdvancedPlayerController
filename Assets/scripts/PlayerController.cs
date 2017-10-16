@@ -12,22 +12,15 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 8.0f;
     public float jumpSpeed = 6.0f;
 
-	  public float fallingDamageLimit = 10.0f;
-	  public float slideSpeed = 12.0f;
-    public float gravity = 10.0f;
-
     public bool limitDiagonalSpeed = true;
     public bool toggleRun = false;
     public bool toggleSneak = false;
     public bool airControl = true; // strafing / b-hop
-<<<<<<< HEAD
     public bool firstPerson = false;
 
     public float gravity = 10.0f;
     public float fallingDamageLimit = 10.0f;
 
-=======
->>>>>>> issue-#3-mouse-look
     private Vector3 moveDirection;
     private bool grounded;
     private CharacterController controller;
@@ -55,17 +48,9 @@ public class PlayerController : MonoBehaviour
     {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-<<<<<<< HEAD
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.6701f : 1.0f;
         anim.SetFloat("BlendX", (inputX * 2));
         anim.SetFloat("BlendY", (inputY * 2));
-=======
-
-        float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.7071f : 1.0f;
-
-        anim.SetFloat("BlendX", (inputX * 2) );
-        anim.SetFloat("BlendY", (inputY * 2) );
->>>>>>> issue-#3-mouse-look
         anim.SetBool("Walking", (anim.GetFloat("BlendX") != 0 || anim.GetFloat("BlendY") != 0));
 
         if (grounded)
