@@ -11,16 +11,14 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 8.0f;
     public float jumpSpeed = 6.0f;
 
-	public float fallingDamageLimit = 10.0f;
-	public float slideSpeed = 12.0f;
-
-	public float gravity = 10.0f;
+	  public float fallingDamageLimit = 10.0f;
+	  public float slideSpeed = 12.0f;
+    public float gravity = 10.0f;
 
     public bool limitDiagonalSpeed = true;
     public bool toggleRun = false;
     public bool toggleSneak = false;
     public bool airControl = true; // strafing / b-hop
-
     private Vector3 moveDirection;
     private bool grounded;
     private CharacterController controller;

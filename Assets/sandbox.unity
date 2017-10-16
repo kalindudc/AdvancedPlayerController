@@ -134,7 +134,6 @@ MonoBehaviour:
   toggleRun: 0
   toggleSneak: 0
   airControl: 1
---- !u!143 &187070688
 CharacterController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
