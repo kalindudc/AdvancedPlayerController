@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: cf7be10a51046c04ba5c3837e6702f51
-timeCreated: 1508092955
+timeCreated: 1508102506
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
@@ -204,7 +204,7 @@ ModelImporter:
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
-      mirror: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []

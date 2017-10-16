@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public Camera mainCamera;
 
     public float walkSpeed = 5.0f;
     public float sneakSpeed = 2.5f;
@@ -19,6 +20,14 @@ public class PlayerController : MonoBehaviour
     public bool toggleRun = false;
     public bool toggleSneak = false;
     public bool airControl = true; // strafing / b-hop
+<<<<<<< HEAD
+    public bool firstPerson = false;
+
+    public float gravity = 10.0f;
+    public float fallingDamageLimit = 10.0f;
+
+=======
+>>>>>>> issue-#3-mouse-look
     private Vector3 moveDirection;
     private bool grounded;
     private CharacterController controller;
@@ -27,9 +36,6 @@ public class PlayerController : MonoBehaviour
     private RaycastHit hit;
     private float fallStartLevel;
     private bool falling;
-    private float slideLimit;
-    private float rayDistance;
-    private Vector3 contactPoint;
     private bool playerControl;
     private Animator anim;
 
@@ -42,8 +48,6 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         myTransform = transform;
         speed = walkSpeed;
-        rayDistance = (controller.height * 0.5f) + controller.radius;
-        slideLimit = controller.slopeLimit - 0.1f;
         anim = GetComponent<Animator>();
     }
 
@@ -51,11 +55,17 @@ public class PlayerController : MonoBehaviour
     {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
+<<<<<<< HEAD
+        float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.6701f : 1.0f;
+        anim.SetFloat("BlendX", (inputX * 2));
+        anim.SetFloat("BlendY", (inputY * 2));
+=======
 
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.7071f : 1.0f;
 
         anim.SetFloat("BlendX", (inputX * 2) );
         anim.SetFloat("BlendY", (inputY * 2) );
+>>>>>>> issue-#3-mouse-look
         anim.SetBool("Walking", (anim.GetFloat("BlendX") != 0 || anim.GetFloat("BlendY") != 0));
 
         if (grounded)
@@ -75,6 +85,10 @@ public class PlayerController : MonoBehaviour
                 bool running = Input.GetButton("Run");
                 speed = running ? runSpeed : walkSpeed;
                 anim.SetBool("Running", running);
+            } 
+            else
+            {
+                anim.SetBool("Running", true);
             }
 
             if (!toggleSneak)
@@ -115,21 +129,37 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
-
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
         moveDirection.y -= gravity * Time.deltaTime;
+
+        
     }
 
     void Update()
     {
         if (toggleRun && grounded && Input.GetButtonDown("Run"))
             speed = (speed == walkSpeed ? runSpeed : walkSpeed);
+
+        if (Input.GetButtonUp("Camera Mode"))
+        {
+            if (!firstPerson)
+            {
+                firstPerson = true;
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y + 0.95f, mainCamera.transform.position.z - 3.3f);
+                mainCamera.transform.Rotate(Vector3.right, 20.0f);
+            }
+            else
+            {
+                firstPerson = false;
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 0.95f, mainCamera.transform.position.z + 3.3f);
+                mainCamera.transform.Rotate(Vector3.left, 20.0f);
+            }
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        contactPoint = hit.point;
+        //print(hit.point);
     }
 
     void FallingDamageAlert(float fallDistance)
