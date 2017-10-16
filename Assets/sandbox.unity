@@ -38,11 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 367419521}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44646978, g: 0.4963097, b: 0.5747266, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 9
   m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 8
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_ShadowMaskMode: 2
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -112,6 +112,28 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
   m_PrefabInternal: {fileID: 2009963618}
+--- !u!114 &187070686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 187070685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e389df19b434bc740baa117b5d52dc2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+  sneakSpeed: 2
+  runSpeed: 6.5
+  jumpSpeed: 6
+  fallingDamageLimit: 10
+  slideSpeed: 12
+  gravity: 10
+  limitDiagonalSpeed: 1
+  toggleRun: 0
+  toggleSneak: 0
+  airControl: 1
 --- !u!143 &187070688
 CharacterController:
   m_ObjectHideFlags: 0
@@ -129,32 +151,10 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.98, z: 0}
---- !u!114 &187070689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 187070685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e389df19b434bc740baa117b5d52dc2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 2
-  sneakSpeed: 1
-  runSpeed: 4
-  jumpSpeed: 6
-  limitDiagonalSpeed: 1
-  toggleRun: 0
-  toggleSneak: 0
-  slideWhenOverSlope: 1
-  slideOnTaggedObject: 1
-  airControl: 1
-  gravity: 20
-  fallingDamageLimit: 10
-  slideSpeed: 12
-  antiBumpFactor: 0.75
-  antiBunnyHopFactor: 0
+--- !u!4 &187070689 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
+  m_PrefabInternal: {fileID: 2009963618}
 --- !u!1 &367419520
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 1676076242}
   - component: {fileID: 1676076241}
   - component: {fileID: 1676076240}
+  - component: {fileID: 1676076245}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -537,13 +538,27 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1676076239}
-  m_LocalRotation: {x: 0.23855078, y: -0, z: -0, w: 0.9711301}
-  m_LocalPosition: {x: 264.69016, y: 2.255, z: 248.247}
+  m_LocalRotation: {x: 0.21295178, y: -0.043336853, z: 0.009467764, w: 0.9760553}
+  m_LocalPosition: {x: 0.03100586, y: 2.5174427, z: -3.1343079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 187070689}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 27.602001, y: 0, z: 0}
+--- !u!114 &1676076245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1676076239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae8361048fab490caddb110446a74e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 100
+  xClampAngle: 20
+  yClampAngle: 45
 --- !u!1 &1862331468
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862331469}
   m_Layer: 0
-  m_Name: WORLD
+  m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -618,6 +633,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 164628cfff1f8e949b7e4ad5f213fec0, type: 2}
+    - target: {fileID: 100074, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60488edc3ea735c40800a8c258941e53, type: 3}
   m_IsPrefabParent: 0
