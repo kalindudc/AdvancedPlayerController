@@ -6,3 +6,5 @@ A smooth and precise First person / Third person controller for Unity.
 2. Open Unity
 3. Click "OPEN" from the top right corner
 4. Select the cloned directory, unity will recogniz the directory as a Unity project
+## Acknowledgments
+* 3D-model / animations are from http://www.mixamo.com
