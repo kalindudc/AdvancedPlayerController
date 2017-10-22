@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public float fallingDamageLimit = 10.0f;
 
     private Vector3 moveDirection;
+
     private bool grounded;
     private CharacterController controller;
     private Transform myTransform;
