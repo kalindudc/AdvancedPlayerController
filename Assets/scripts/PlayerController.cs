@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    public Camera mainCamera;
-
     public float walkSpeed = 5.0f;
     public float sneakSpeed = 2.5f;
     public float runSpeed = 8.0f;
@@ -136,22 +134,6 @@ public class PlayerController : MonoBehaviour
     {
         if (toggleRun && grounded && Input.GetButtonDown("Run"))
             speed = (speed == walkSpeed ? runSpeed : walkSpeed);
-
-        if (Input.GetButtonUp("Camera Mode"))
-        {
-            if (!firstPerson)
-            {
-                firstPerson = true;
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y + 0.95f, mainCamera.transform.position.z - 3.3f);
-                mainCamera.transform.Rotate(Vector3.right, 20.0f);
-            }
-            else
-            {
-                firstPerson = false;
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 0.95f, mainCamera.transform.position.z + 3.3f);
-                mainCamera.transform.Rotate(Vector3.left, 20.0f);
-            }
-        }
 
         if (Input.GetButtonUp("Crouch"))
         {
