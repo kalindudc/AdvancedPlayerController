@@ -1087,6 +1087,10 @@ Prefab:
       propertyPath: m_AllowMSAA
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114037244732580696, guid: 7f59e418c83b2364db0fd34163c20d5f,
+        type: 2}
+      propertyPath: crouchRunSpeed
+      value: 5
     - target: {fileID: 1760142311977302, guid: 7f59e418c83b2364db0fd34163c20d5f, type: 2}
       propertyPath: m_Name
       value: 3rdPersonCamera

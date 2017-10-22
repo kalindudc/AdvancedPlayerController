@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 5.0f;
     public float sneakSpeed = 2.5f;
     public float runSpeed = 8.0f;
+    public float crouchWalkSpeed = 3.5f;
+    public float crouchRunSpeed = 6.5f;
+    public float crouchSneakSpeed = 1f;
     public float jumpSpeed = 6.0f;
 
     public bool limitDiagonalSpeed = true;
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool toggleSneak = false;
     public bool airControl = true; // strafing / b-hop
     public bool firstPerson = false;
+    public bool crouching = false;
 
     public float gravity = 10.0f;
     public float fallingDamageLimit = 10.0f;
@@ -84,6 +88,13 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("Sneaking", sneaking);
             }
 
+            if (crouching)
+            {
+                print("CROUCHING");
+                speed = Input.GetButton("Run") ? crouchRunSpeed : crouchWalkSpeed;
+                speed = Input.GetButton("Sneak") ? crouchSneakSpeed : speed;
+            }
+
             //print(speed);
             moveDirection = new Vector3(inputX * inputModifyFactor, 0, inputY * inputModifyFactor);
             moveDirection = myTransform.TransformDirection(moveDirection) * speed;
@@ -125,6 +136,28 @@ public class PlayerController : MonoBehaviour
     {
         if (toggleRun && grounded && Input.GetButtonDown("Run"))
             speed = (speed == walkSpeed ? runSpeed : walkSpeed);
+
+        if (Input.GetButtonUp("Camera Mode"))
+        {
+            if (!firstPerson)
+            {
+                firstPerson = true;
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y + 0.95f, mainCamera.transform.position.z - 3.3f);
+                mainCamera.transform.Rotate(Vector3.right, 20.0f);
+            }
+            else
+            {
+                firstPerson = false;
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 0.95f, mainCamera.transform.position.z + 3.3f);
+                mainCamera.transform.Rotate(Vector3.left, 20.0f);
+            }
+        }
+
+        if (Input.GetButtonUp("Crouch"))
+        {
+            crouching = !crouching;
+            anim.SetBool("Crouch", crouching);
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)

@@ -7,6 +7,7 @@ public class PlayerMouseLook : MonoBehaviour {
 	public float mouseSensitivity = 100.0f;
 	public float xClampAngle = 50.0f;
 	public float yClampAngle = 45.0f;
+    public bool isCursorVisible = false;
 	public GameObject player;
 
 	private float rotY = 0.0f; // rotation around the up/y axis
@@ -35,4 +36,21 @@ public class PlayerMouseLook : MonoBehaviour {
 		this.transform.rotation = camRotation;
 		player.transform.rotation = playerRotation;
 	}
+
+    private void Update()
+    {
+        if (!isCursorVisible)
+        {
+            Cursor.visible = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            isCursorVisible = true;
+        }
+        else
+        {
+            isCursorVisible = false;
+        }
+    }
 }
