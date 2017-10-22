@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float fallingDamageLimit = 10.0f;
 
     private Vector3 moveDirection;
+
     private bool grounded;
     private CharacterController controller;
     private Transform myTransform;
@@ -124,22 +125,6 @@ public class PlayerController : MonoBehaviour
     {
         if (toggleRun && grounded && Input.GetButtonDown("Run"))
             speed = (speed == walkSpeed ? runSpeed : walkSpeed);
-
-        if (Input.GetButtonUp("Camera Mode"))
-        {
-            if (!firstPerson)
-            {
-                firstPerson = true;
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y + 0.95f, mainCamera.transform.position.z - 3.3f);
-                mainCamera.transform.Rotate(Vector3.right, 20.0f);
-            }
-            else
-            {
-                firstPerson = false;
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 0.95f, mainCamera.transform.position.z + 3.3f);
-                mainCamera.transform.Rotate(Vector3.left, 20.0f);
-            }
-        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
