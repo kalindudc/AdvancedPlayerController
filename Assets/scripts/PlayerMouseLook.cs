@@ -19,22 +19,19 @@ public class PlayerMouseLook : MonoBehaviour {
 		player = this.transform.parent.gameObject;
 	}
 
-	// Update is called once per frame
+
 	void Update () {
 
 		Vector2 mouseDelta = new Vector2 (Input.GetAxis ("Mouse X"), Input.GetAxis ("Mouse Y"));
 
 		mouseDelta = Vector2.Scale(mouseDelta, new Vector2(mouseSensitivity, mouseSensitivity));
 
-		// Interpolate mouse movement over time to apply smoothing delta.
 		_smoothMouse.x = Mathf.Lerp(_smoothMouse.x, mouseDelta.x, 1f / smoothing);
 		_smoothMouse.y = Mathf.Lerp(_smoothMouse.y, mouseDelta.y, 1f / smoothing);
 
 		_mouseAbsolute += _smoothMouse;
 
 		_mouseAbsolute.y = Mathf.Clamp(_mouseAbsolute.y, yLowClampAngle, yLowClampAngle + yClampRange);
-
-		print (_mouseAbsolute);
 
 		transform.localRotation = Quaternion.AngleAxis (-_mouseAbsolute.y, Vector3.right);
 		player.transform.localRotation = Quaternion.AngleAxis (_mouseAbsolute.x, player.transform.up);
