@@ -4,53 +4,56 @@ using UnityEngine;
 
 public class PlayerMouseLook : MonoBehaviour {
 
-	public float mouseSensitivity = 100.0f;
-	public float xClampAngle = 50.0f;
-	public float yClampAngle = 45.0f;
-    public bool isCursorVisible = false;
-	public GameObject player;
+	public float yLowClampAngle = -30.0f;
+	public float yClampRange = 60.0f;
+	public float mouseSensitivity = 50.0f;
+	public float smoothing = 3.0f;
 
-	private float rotY = 0.0f; // rotation around the up/y axis
-	private float rotX = 0.0f; // rotation around the right/x axis
+	private  GameObject player;
+	private Vector2 _smoothMouse;
+	private bool isCursorVisible = false;
+	private Vector2 _mouseAbsolute;
 
 	// Use this for initialization
 	void Start () {
-		Vector3 rotation = this.transform.localRotation.eulerAngles;
-		rotX = rotation.x;
-		rotY = rotation.y;
+		player = this.transform.parent.gameObject;
 	}
-	
+
 	// Update is called once per frame
-	void LateUpdate () {
-		float mouseX = Input.GetAxis ("Mouse X");
-		float mouseY = Input.GetAxis ("Mouse Y");
+	void Update () {
 
-		rotY += mouseX * mouseSensitivity * Time.deltaTime;
-		rotX += mouseY * mouseSensitivity * Time.deltaTime;
+		Vector2 mouseDelta = new Vector2 (Input.GetAxis ("Mouse X"), Input.GetAxis ("Mouse Y"));
 
-		rotX = Mathf.Clamp(rotX, -xClampAngle, xClampAngle);
+		mouseDelta = Vector2.Scale(mouseDelta, new Vector2(mouseSensitivity, mouseSensitivity));
 
-		Quaternion camRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		Quaternion playerRotation = Quaternion.Euler (0.0f, rotY, 0.0f);
+		// Interpolate mouse movement over time to apply smoothing delta.
+		_smoothMouse.x = Mathf.Lerp(_smoothMouse.x, mouseDelta.x, 1f / smoothing);
+		_smoothMouse.y = Mathf.Lerp(_smoothMouse.y, mouseDelta.y, 1f / smoothing);
 
-		this.transform.rotation = camRotation;
-		player.transform.rotation = playerRotation;
+		_mouseAbsolute += _smoothMouse;
+
+		_mouseAbsolute.y = Mathf.Clamp(_mouseAbsolute.y, yLowClampAngle, yLowClampAngle + yClampRange);
+
+		print (_mouseAbsolute);
+
+		transform.localRotation = Quaternion.AngleAxis (-_mouseAbsolute.y, Vector3.right);
+		player.transform.localRotation = Quaternion.AngleAxis (_mouseAbsolute.x, player.transform.up);
 	}
 
-    private void Update()
-    {
-        if (!isCursorVisible)
-        {
-            Cursor.visible = false;
-        }
+	private void LateUpdate()
+	{
+		if (!isCursorVisible)
+		{
+			Cursor.visible = false;
+		}
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            isCursorVisible = true;
-        }
-        else
-        {
-            isCursorVisible = false;
-        }
-    }
+		if (Input.GetKeyDown(KeyCode.LeftAlt))
+		{
+			isCursorVisible = true;
+		}
+		else
+		{
+			isCursorVisible = false;
+		}
+	}
 }

@@ -32,8 +32,10 @@ public class PlayerController : MonoBehaviour
     private RaycastHit hit;
     private float fallStartLevel;
     private bool falling;
+	private bool punching;
     private bool playerControl;
     private Animator anim;
+
 
     // Use this for initialization
     void Start()
@@ -52,9 +54,12 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? 0.6701f : 1.0f;
+
         anim.SetFloat("BlendX", (inputX * 2));
         anim.SetFloat("BlendY", (inputY * 2));
         anim.SetBool("Walking", (anim.GetFloat("BlendX") != 0 || anim.GetFloat("BlendY") != 0));
+
+		anim.SetBool("Punching", Input.GetButton("Fire1"));
 
         if (grounded)
         {
@@ -74,6 +79,7 @@ public class PlayerController : MonoBehaviour
                 speed = running ? runSpeed : walkSpeed;
                 anim.SetBool("Running", running);
             } 
+
             else
             {
                 anim.SetBool("Running", true);
@@ -88,9 +94,10 @@ public class PlayerController : MonoBehaviour
 
             if (crouching)
             {
-                print("CROUCHING");
                 speed = Input.GetButton("Run") ? crouchRunSpeed : crouchWalkSpeed;
                 speed = Input.GetButton("Sneak") ? crouchSneakSpeed : speed;
+
+
             }
 
             //print(speed);
