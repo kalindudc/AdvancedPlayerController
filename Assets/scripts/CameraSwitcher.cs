@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour {
 
+	public bool isFirstPerson = false;
+
 	public Camera firstPerson;
 	public Camera thirdPerson;
 
 	// Use this for initialization
 	void Start () {
-		thirdPerson.enabled = true;
-		firstPerson.enabled = false;
+		thirdPerson.enabled = !isFirstPerson;
+		firstPerson.enabled = isFirstPerson;
 	}
 	
 	// Update is called once per frame
@@ -18,8 +20,9 @@ public class CameraSwitcher : MonoBehaviour {
 		if (Input.GetButtonUp("Camera Mode"))
 		{
 			// Just toggles
-			firstPerson.enabled = !firstPerson.enabled;
-			thirdPerson.enabled = !thirdPerson.enabled;
+			isFirstPerson = !isFirstPerson;
+			firstPerson.enabled = isFirstPerson;
+			thirdPerson.enabled = !isFirstPerson;
 		}
 	}
 

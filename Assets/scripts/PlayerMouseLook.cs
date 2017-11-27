@@ -37,20 +37,23 @@ public class PlayerMouseLook : MonoBehaviour {
 		player.transform.localRotation = Quaternion.AngleAxis (_mouseAbsolute.x, player.transform.up);
 	}
 
-	private void LateUpdate()
-	{
-		if (!isCursorVisible)
-		{
+
+  private void Update()
+  {
+		if (!isCursorVisible) {
 			Cursor.visible = false;
+			//Cursor.lockState = true;
+			Screen.lockCursor = true;
+		} else {
+			Cursor.visible = true;
+			//Cursor.lockState = false;
+			Screen.lockCursor = false;
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftAlt))
-		{
-			isCursorVisible = true;
-		}
-		else
-		{
-			isCursorVisible = false;
-		}
-	}
+		if (Input.GetKeyDown(KeyCode.Escape))
+    {
+			isCursorVisible = !isCursorVisible;
+    }
+        
+  }
 }
