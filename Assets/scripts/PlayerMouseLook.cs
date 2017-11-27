@@ -38,22 +38,24 @@ public class PlayerMouseLook : MonoBehaviour {
 	}
 
 
-  private void Update()
+  private void FixedUpdate()
   {
-		if (!isCursorVisible) {
-			Cursor.visible = false;
-			//Cursor.lockState = true;
-			Screen.lockCursor = true;
-		} else {
-			Cursor.visible = true;
-			//Cursor.lockState = false;
-			Screen.lockCursor = false;
-		}
+	if (!isCursorVisible) {
+		Cursor.visible = false;
+		//Cursor.lockState = true;
+		Screen.lockCursor = true;
+	} 
+	else 
+	{
+		Cursor.visible = true;
+		//Cursor.lockState = false;
+		Screen.lockCursor = false;
+	}
 
-		if (Input.GetKeyDown(KeyCode.Escape))
-    {
-			isCursorVisible = !isCursorVisible;
-    }
+	if (Input.GetKeyDown(KeyCode.Escape))
+	{
+		isCursorVisible = !isCursorVisible;
+	}
         
   }
 }
